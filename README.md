@@ -28,12 +28,14 @@ ansible >= 2.9
 2. AnsibleProj/wp_using_roles 디렉토리로 이동
 3. playbook 실행
 ```
-ansible-playbook deploy_wordpress_db_roles.yaml -b
+ansible-playbook -i inventory/webdb.yaml deploy_wordpress_db_roles.yaml -b
 ```
 디렉토리의 구조는 다음과 같다   
 ```bash
 .
 ├── deploy_wordpress_db_roles.yaml
+├── inventory
+│   └── webdb.yaml
 └── roles
     ├── database
     │   ├── handlers
@@ -56,3 +58,4 @@ ansible-playbook deploy_wordpress_db_roles.yaml -b
 ```
 database 역할에는 handler, tasks, vars 만 생성하였다.       
 wordpress 역할에는 wordpress의 설정파일인 wp-config.php 와 apache2, httpd 서비스의 포트변경을 위해 templates 디렉토리를 생성해주었다.       
+inventory 를 플레이북과 같은 디렉토리에 위치시켜 참조한다. 

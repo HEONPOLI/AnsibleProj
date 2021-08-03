@@ -1,0 +1,36 @@
+- name: Install pymysql mysql-server package Debian
+  apt:
+    name: python3-pymysql, mysql-server
+    state: present
+- name: Mysql root user config
+  mysql_user:
+    check_implicit_admin: yes
+    login_unix_socket: "{{ db_var['socket_path'] }}"
+    login_user: root
+    login_password: ''
+    name: root
+    password: "{{ db_var['db_user_root_pw'] }}"
+- name: Mysql wordpress user create
+  mysql_user:
+    login_user: root
+    login_password: "{{ db_var['db_user_root_pw'] }}"
+    name: "{{ db_var['db_user_wp'] }}"
+    password: "{{ db_var['db_user_wp_pw'] }}"
+    host: 192.168.200.0/24
+    priv: "{{ db_var['db_user_wp'] }}.*:ALL,GRANT"
+- name: Mysql database create
+  mysql_db:
+    login_user: root
+    login_password: "{{ db_var['db_user_root_pw'] }}"
+    name: "{{ db_var['db_name'] }}"
+- name: Unset bind-address
+  lineinfile:
+    path: "{{ db_var['conf_path'] }}"
+    regexp: '^bind'
+    line: ''
+- name: Unset mysqlx-bind-address
+  lineinfile:
+    path: "{{ db_var['conf_path'] }}"
+    regexp: '^mysqlx'
+    line: ''
+  notify: Mysql Service Restart

@@ -1,0 +1,13 @@
+wp_var:
+  wp_sampleconf_php: /var/www/html/wordpress/wp-config-sample.php
+  wp_conf_php: /var/www/html/wordpress/wp-config.php
+db_var:
+  socket_path: /var/run/mysqld/mysqld.sock
+  db_user_root_pw: wordpress
+  db_user_wp: wordpress
+  db_user_wp_pw: wordpress
+  db_name: wordpress
+  conf_path: /etc/mysql/mysql.conf.d/mysqld.cnf
+  db_host: 192.168.200.102
+port_var:
+  service_port: 8080

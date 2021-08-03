@@ -1,0 +1,10 @@
+- name: Install Package httpd
+  yum:
+    name: httpd
+- name: Install Package php redhat
+  yum:
+    name: php, php-mysql, php-gd, php-mbstring         
+- name: Start httpd service
+  service:
+    name: httpd
+    state: started

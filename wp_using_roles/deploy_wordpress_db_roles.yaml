@@ -1,0 +1,9 @@
+- name: Configure Mysql
+  hosts: 192.168.200.102
+  roles:
+    - database
+- name: Configure wordpress service
+  hosts: 192.168.200.101
+  roles:
+    - wordpress
+      

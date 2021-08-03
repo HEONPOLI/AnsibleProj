@@ -1,5 +1,5 @@
 # AnsibleProj
-1. wp_import
+# 1. wp_import
 
 requirements :          
 ansible >= 2.9          
@@ -14,8 +14,8 @@ ansible >= 2.9
 ```
 ansible-playbook multioswp.yaml -b 
 ```
-
-2. wp_using_roles     
+---
+# 2. wp_using_roles     
 
 requirements:         
 ansible >= 2.9        

@@ -1,4 +1,4 @@
-db_var:
+db:
   socket_path: /var/run/mysqld/mysqld.sock
   socket_path_Redhat: /var/lib/mysql/mysql.sock
   db_user_root_pw: wordpress

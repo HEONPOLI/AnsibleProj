@@ -1,62 +1,21 @@
 - name: Download wordpress
-  get_url:
-    url: https://wordpress.org/wordpress-5.8.tar.gz
-    dest: /home/devops/wordpress-5.8.tar.gz
-  async: 120
-  poll: 0
-  register: down_result
+  import_tasks: fetch-config/get_wp.yaml
+
 - name: Install Package apache2 Debian
-  block:
-    - name: Install Package apache2
-      apt:
-        name: apache2
-    - name: Install Package php debian
-      apt:
-        name: php, php-mysql, php-gd, php-mbstring
-    - name: Check Apache2 Service
-      service:
-        name: apache2
-        state: started
-        enabled: yes
+  import_tasks: install-confchange/install_deb.yaml
   when: ansible_facts['os_family'] == "Debian"
+
 - name: Install Package httpd, php RedHat
-  block:
-    - name: Install Package httpd
-      yum:
-        name: httpd
-    - name: Install Package php redhat
-      yum:
-        name: php, php-mysql, php-gd, php-mbstring
+  import_tasks: install-confchange/install_red.yaml
   when: ansible_facts['os_family'] == "RedHat"
+
 - name: sync
-  async_status:
-    jid: "{{ down_result.ansible_job_id }}"
-  register: job_result
-  until: job_result.finished
-  retries: 100
-  delay: 5
-- name: UnArchiving wordpress file
-  unarchive:
-    src: /home/devops/wordpress-5.8.tar.gz
-    dest: /var/www/html/
-    remote_src: yes
-- name: Copy & Setting wp-config.ph with template
-  template:
-    src: wp-config.php.j2
-    dest: /var/www/html/wordpress/wp-config.php
+  import_tasks: fetch-config/sync_config.yaml
+
 - name: Change Service port in Debian
-  template:
-    src: ports.j2
-    dest: /etc/apache2/ports.conf
-    force: yes
-  notify:
-  - Restart apache2 for Debian Distribution
+  import_tasks: install-confchange/changePort_deb.yaml
   when: ansible_facts['os_family'] == "Debian"
+
 - name: Change Service port in Redhat
-  template:
-    src: portsrh.j2
-    dest: /etc/httpd/conf/httpd.conf
-    force: yes
-  notify:
-  - Restart httpd for Redhat Distribution
+  import_tasks: install-confchange/changePort_red.yaml
   when: ansible_facts['os_family'] == "RedHat"

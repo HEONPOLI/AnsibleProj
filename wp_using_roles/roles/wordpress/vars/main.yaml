@@ -2,7 +2,7 @@ wp_var:
   wp_sampleconf_php: /var/www/html/wordpress/wp-config-sample.php
   wp_conf_php: /var/www/html/wordpress/wp-config.php
 db_var:
-  db_host: 192.168.200.102
+  db_host: "{{ groups['dbserver'][0] }}"
   db_user_root_pw: wordpress
   db_user_wp: wordpress
   db_user_wp_pw: wordpress

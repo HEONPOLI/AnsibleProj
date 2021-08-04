@@ -1,0 +1,5 @@
+- name: hhh
+  hosts: webserver
+  tasks:
+  - debug:
+      msg: "{{ groups['dbserver'][0] }}"

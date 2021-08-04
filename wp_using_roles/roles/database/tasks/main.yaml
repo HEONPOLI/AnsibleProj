@@ -18,7 +18,7 @@
         login_password: "{{ db_var['db_user_root_pw'] }}"
         name: "{{ db_var['db_user_wp'] }}"
         password: "{{ db_var['db_user_wp_pw'] }}"
-        host: 192.168.200.0/24
+        host: "{{ groups['webserver'][0] }}"
         priv: "{{ db_var['db_user_wp'] }}.*:ALL,GRANT"
     - name: Mysql database create
       mysql_db:
@@ -57,7 +57,7 @@
         login_password: "{{ db_var['db_user_root_pw'] }}"
         name: "{{ db_var['db_user_wp'] }}"
         password: "{{ db_var['db_user_wp_pw'] }}"
-        host: 192.168.200.0/24
+        host: "{{ groups['webserver'][0] }}"
         priv: "{{ db_var['db_user_wp'] }}.*:ALL,GRANT"
     - name: Mysql database create
       mysql_db:

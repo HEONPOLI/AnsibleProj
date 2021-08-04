@@ -1,8 +1,8 @@
-- name: Restart apache2
+- name: Restart apache2 for Debian Distribution
   service:
     name: apache2
     state: restarted
-- name: Restart httpd
+- name: Restart httpd for Redhat Distribution
   service:
     name: httpd
     state: restarted

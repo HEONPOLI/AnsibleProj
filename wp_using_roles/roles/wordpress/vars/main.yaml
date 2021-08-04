@@ -8,4 +8,4 @@ db_var:
   db_user_wp_pw: wordpress
   db_name: wordpress
 port_var:
-  service_port: 8080
+  service_port: "{{ service_port }}"

@@ -2,4 +2,4 @@
   hosts: webserver
   tasks:
   - debug:
-      msg: "{{ groups['dbserver'][0] }}"
+      msg: "{{ service_port }}"

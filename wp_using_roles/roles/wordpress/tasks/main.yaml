@@ -50,7 +50,7 @@
     dest: /etc/apache2/ports.conf
     force: yes
   notify:
-  - Restart apache2
+  - Restart apache2 for Debian Distribution
   when: ansible_facts['os_family'] == "Debian"
 - name: Change Service port in Redhat
   template:
@@ -58,5 +58,5 @@
     dest: /etc/httpd/conf/httpd.conf
     force: yes
   notify:
-  - Restart httpd
+  - Restart httpd for Redhat Distribution
   when: ansible_facts['os_family'] == "RedHat"

@@ -1,7 +1,6 @@
 # Put your Web Service IP address
 [webserver]
 192.168.200.101
-
 # Put your DataBase IP address
 [dbserver] 
 192.168.200.102
@@ -9,3 +8,4 @@
 # Put your local IP address
 [local]
 192.168.200.100
+

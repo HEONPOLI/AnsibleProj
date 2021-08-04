@@ -26,7 +26,15 @@ ansible >= 2.9
 제어노드에서      
 1. 해당 레포지토리 clone
 2. AnsibleProj/wp_using_roles 디렉토리로 이동
-3. playbook 실행
+3. 변수파일, 호스트 확인
+```bash
+cat group_vars/webserver/port_vars.yaml # 아파치, httpd에 대해 변경할 포트에 대한 변수
+cat roles/database/vars/main.yaml # 데이터베이스의 변수확인
+cat roles/wordpress/vars/main.yaml # 웹상에 워드프레스 설정에 대한 변수확인
+
+cat inventory/webdb.yaml # webserver, dbserver 그룹의 ip address 인벤토리 확인 
+```
+5. playbook 실행
 ```
 ansible-playbook -i inventory/webdb.yaml deploy_wordpress_db_roles.yaml -b
 ```
@@ -34,6 +42,9 @@ ansible-playbook -i inventory/webdb.yaml deploy_wordpress_db_roles.yaml -b
 ```bash
 .
 ├── deploy_wordpress_db_roles.yaml
+├── group_vars
+│   └── webserver
+│       └── port_vars.yaml
 ├── inventory
 │   └── webdb.yaml
 └── roles
@@ -41,6 +52,10 @@ ansible-playbook -i inventory/webdb.yaml deploy_wordpress_db_roles.yaml -b
     │   ├── handlers
     │   │   └── main.yaml
     │   ├── tasks
+    │   │   ├── Debian
+    │   │   │   └── install_debian.yaml
+    │   │   ├── RedHat
+    │   │   │   └── install_redhat.yaml
     │   │   └── main.yaml
     │   └── vars
     │       └── main.yaml
@@ -48,10 +63,18 @@ ansible-playbook -i inventory/webdb.yaml deploy_wordpress_db_roles.yaml -b
         ├── handlers
         │   └── main.yaml
         ├── tasks
+        │   ├── fetch-config
+        │   │   ├── get_wp.yaml
+        │   │   └── sync_config.yaml
+        │   ├── install-confchange
+        │   │   ├── changePort_deb.yaml
+        │   │   ├── changePort_red.yaml
+        │   │   ├── install_deb.yaml
+        │   │   └── install_red.yaml
         │   └── main.yaml
         ├── templates
-        │   ├── ports.j2
-        │   ├── portsrh.j2
+        │   ├── httpd.conf.j2
+        │   ├── ports.conf.j2
         │   └── wp-config.php.j2
         └── vars
             └── main.yaml
